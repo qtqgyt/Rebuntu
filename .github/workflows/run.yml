@@ -28,7 +28,7 @@ jobs:
           sudo apt update
       - name: Get the source
         run: |
-          PACKAGE="base-files"
+          echo "PACKAGE=base-files" >> $GITHUB_ENV
           sudo apt update
           apt source $PACKAGE
       - name: Get the dependencies
