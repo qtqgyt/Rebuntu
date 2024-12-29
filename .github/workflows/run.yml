@@ -31,7 +31,7 @@ jobs:
           PACKAGE="base-files"
           sudo apt update
           apt source $PACKAGE
+      - name: Get the dependencies
+        run: |
           cd "$(ls -d */)"
-          pwd
           sudo apt build-dep $PACKAGE
-          
