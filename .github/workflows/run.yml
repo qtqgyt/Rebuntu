@@ -28,8 +28,10 @@ jobs:
           sudo apt update
       - name: Get the source
         run: |
+          PACKAGE="base-files"
           sudo apt update
-          apt source base-files
+          apt source $PACKAGE
           cd "$(ls -d */)"
           pwd
+          sudo apt build-dep $PACKAGE
           
