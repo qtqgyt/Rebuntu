@@ -30,3 +30,6 @@ jobs:
         run: |
           sudo apt update
           apt source base-files
+          cd "$(ls -d */)"
+          pwd
+          
