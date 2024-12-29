@@ -26,9 +26,10 @@ jobs:
         run: |
           sudo sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/ubuntu.sources
           sudo apt update
+      - name: Set the enviorment variables
+        run: "echo 'PACKAGE=base-files' >> $GITHUB_ENV"
       - name: Get the source
         run: |
-          echo "PACKAGE=base-files" >> $GITHUB_ENV
           sudo apt update
           apt source $PACKAGE
       - name: Get the dependencies
