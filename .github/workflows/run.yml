@@ -15,14 +15,10 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  base-files:
     runs-on: ubuntu-24.04
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Update ubuntu.sources to enable deb-src
+      - name: Update ubuntu.sources
         run: |
           sudo sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/ubuntu.sources
           sudo apt update
@@ -44,8 +40,32 @@ jobs:
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.5.0
         with:
-          # Artifact name
-          name: package
-          # A file, directory or wildcard pattern that describes what to upload
+          name: base-files
           path: "/artifacts/*"
-          # The desired behavior if no files are found using the provided path.
+  base-passwd:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Update ubuntu.sources
+        run: |
+          sudo sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/ubuntu.sources
+          sudo apt update
+      - name: Set the enviorment variables
+        run: "echo 'PACKAGE=base-passwd >> $GITHUB_ENV"
+      - name: Get the source
+        run: |
+          sudo apt update
+          apt source $PACKAGE
+      - name: Get the dependencies
+        run: |
+          sudo apt build-dep $PACKAGE
+      - name: Build the package
+        run: |
+          cd "$(ls -d */)"
+          dpkg-buildpackage -us -uc
+          sudo mkdir /artifacts
+          sudo mv ../*.deb /artifacts/
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.5.0
+        with:
+          name: base-passwd
+          path: "/artifacts/*"
