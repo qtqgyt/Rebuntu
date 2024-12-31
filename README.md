@@ -4,8 +4,7 @@
 ### Important Notice! Ubuntu is a trademark of Canonical and I am technically required to link this document. [Canonical Trademarks](https://ubuntu.com/legal/trademarks)
 ####
 - [ ] Building the packages
-     - [X] Fix libkeyutils1
-          - [x] Don't break coreutils while fixing libkeyutils1
+     - [x] Fix libnss-systemd
 - [ ] Creating a mirror that debootstrap can download from that is hosting the packages
 - [ ] Create the chroot enviorment
 - [ ] Build the ISO
