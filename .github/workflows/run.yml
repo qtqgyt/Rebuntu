@@ -39,7 +39,8 @@ jobs:
         run: |
           cd "$(ls -d */)"
           dpkg-buildpackage -us -uc
-          mv ../*.deb /artifacts/
+          sudo mkdir /artifacts
+          sudo mv ../*.deb /artifacts/
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.5.0
         with:
