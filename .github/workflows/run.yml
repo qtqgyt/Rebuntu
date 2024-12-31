@@ -31,7 +31,7 @@ jobs:
           if [ "$PACKAGE" = "libkeyutils1" ]; then
             sudo dpkg-buildpackage -us -uc
           else
-            dpkg-buildpackage -us -uc
+            dpkg-buildpackage -us -uc --no-debhelper --no-tests
           fi
           sudo mkdir /artifacts
           sudo mv ../*.deb /artifacts/
