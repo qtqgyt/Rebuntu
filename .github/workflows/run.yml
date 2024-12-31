@@ -69,3 +69,27 @@ jobs:
         with:
           name: base-passwd
           path: "/artifacts/*"
+  bash:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Update ubuntu.sources
+        run: |
+          sudo sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/ubuntu.sources
+          sudo apt update
+      - name: Set the enviorment variables
+        run: "echo 'PACKAGE=base-passwd' >> $GITHUB_ENV"
+      - name: Get the source
+        run: |
+          sudo apt update
+          apt source $PACKAGE
+      - name: Get the dependencies
+        run: |
+          sudo apt build-dep $PACKAGE
+      - name: Build the package
+        run: |
+          cd "$(ls -d */)"
+          dpkg-buildpackage -us -uc
+          sudo mkdir /artifacts
+          sudo mv ../*.deb /artifacts/
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.5.0
