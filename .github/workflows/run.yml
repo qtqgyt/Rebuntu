@@ -50,7 +50,7 @@ jobs:
           sudo sed -i 's/^Types: deb$/Types: deb deb-src/' /etc/apt/sources.list.d/ubuntu.sources
           sudo apt update
       - name: Set the enviorment variables
-        run: "echo 'PACKAGE=base-passwd >> $GITHUB_ENV"
+        run: "echo 'PACKAGE=base-passwd' >> $GITHUB_ENV"
       - name: Get the source
         run: |
           sudo apt update
