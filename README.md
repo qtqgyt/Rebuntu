@@ -5,6 +5,7 @@
 ####
 - [ ] Building the packages
      - [ ] Fix libkeyutils1
+          - [x] Don't break coreutils while fixing libkeyutils1
 - [ ] Creating a mirror that debootstrap can download from that is hosting the packages
 - [ ] Create the chroot enviorment
 - [ ] Build the ISO
